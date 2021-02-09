@@ -17,6 +17,4 @@
         </form>
     </section>
 </body>
-<script src="app.js"></script>
-<script src="api_fetch.js"></script>
 </html>

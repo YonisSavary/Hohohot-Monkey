@@ -34,5 +34,4 @@ use Monkey\Services\Auth;
     <input type="hidden" id="user_token" value="<?= Auth::token() ?>">
 </body>
 <script src="<?= url('js/app.js') ?>"></script>
-<script src="<?= url('js/api_fetch.js') ?>"></script>
 </html>

@@ -8,13 +8,15 @@ function read_config()
     .then((res)=>{
         console.log(res);
         user_config = res;
+        fetchAPI()
     });
 }
 
 
 function fetchAPI(){
     if (user_config !== null){
-        fetch(user_config.api_url)
+        url = `${window.location.protocol}//${window.location.host}/proxy?token=${user_token}`;
+        fetch(url)
         .then(res => res.json())
         .then((data)=>{
             console.log(data);
@@ -43,7 +45,7 @@ function fetchAPI(){
 
 function fillAPIInfo(meta)
 {
-    apiInfo.innerHTML = "Autres Informations Données par l'API | ";
+    apiInfo.innerHTML = "";
     Object.keys(meta).forEach(key => {
         apiInfo.innerHTML += `${key} : ${meta[key]} | `;
     })
@@ -52,6 +54,7 @@ function fillAPIInfo(meta)
 
 function getAlerte(t, mode)
 {
+    console.log(t, mode);
     // EXT
     if (t > 35.0) return "Hot hot hot !";
     if (t < 0) return "Banquise en Vue";
@@ -67,7 +70,7 @@ function getAlerte(t, mode)
 function getTempSection(capteur)
 {
     capteur.mode = "ext";
-    if (capteur.Nom.indexOf("int")) capteur.mode = "int";
+    if (capteur.Nom.indexOf("int") != -1) capteur.mode = "int";
     return `
     <section class="temp-section">
         <h1>${capteur[user_config.devices_value]}°</h1>
@@ -113,4 +116,3 @@ if (typeof user_token === "undefined"){
 
 read_config();
 setInterval(fetchAPI,5000);
-fetchAPI();
