@@ -4,6 +4,7 @@ namespace Monkey\Services;
 
 use Kernel\ModelParser;
 use Monkey\Config;
+use Monkey\Router;
 use Monkey\Web\Trash;
 
 
@@ -55,6 +56,18 @@ class Auth
         Auth::$model = $model;
         Auth::$login_field = $login_field;
         Auth::$pass_field = $pass_field;
+
+        if (Auth::is_logged())
+        {
+            if ($_SESSION["m_auth_duration"] === 0){
+                Auth::logout();
+            } else {
+                $_SESSION["m_auth_duration"] +=  Config::get("auth_hop_duration", 300);
+                if ($_SESSION["m_auth_duration"] > Config::get("auth_duration")){
+                    $_SESSION["m_auth_duration"] =  Config::get("auth_duration", 3600);
+                }
+            }
+        }
     }
 
 
@@ -91,14 +104,30 @@ class Auth
     {
         if (Auth::check($login, $password))
         {
+            $_SESSION["m_auth_attempt"] = 0;
             $u = Auth::$model->get_all()->where(Auth::$login_field, $login)->limit(1)->execute();
             Auth::login($u[0]);
             return true;
         } else {
+            if (!isset($_SESSION["m_auth_attempt"])) $_SESSION["m_auth_attempt"] = 0;
+            $_SESSION["m_auth_attempt"]++;
             Auth::logout();
             return false;
         }
     }
+
+
+
+
+    /**
+     * Get the total failed attempts number
+     */
+    public static function attempts() : int 
+    {
+        return $_SESSION["m_auth_attempt"];
+    }
+
+
 
 
 
@@ -110,6 +139,7 @@ class Auth
         $_SESSION["m_auth_user"] = $user;
         $_SESSION["m_auth_logged"] = true;
         $_SESSION["m_auth_token"] = bin2hex(random_bytes(32));
+        $_SESSION["m_auth_duration"] =  Config::get("auth_duration", 3600);
     }
 
 
