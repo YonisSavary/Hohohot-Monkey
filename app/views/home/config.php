@@ -1,17 +1,5 @@
-<?php
-
-use Monkey\Services\Auth;
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= url('css/app.css') ?>">
-    <title>Hohohot</title>
-</head>
-<body>
+<?= include_file("header") ?>
+    <?php use Monkey\Services\Auth; ?>
     <section class="fullscreen">
         <article class="f-col align-center">
             <h1>Changer de mot de passe</h1>
@@ -89,5 +77,4 @@ use Monkey\Services\Auth;
         <input type="hidden" id="user_token" value="<?= Auth::token() ?>">
         <script src="<?= url('js/config.js') ?>"></script>
     </section>
-</body>
-</html>
+<?= include_file("footer") ?>

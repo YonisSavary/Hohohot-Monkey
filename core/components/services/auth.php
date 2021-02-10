@@ -36,12 +36,15 @@ class Auth
      */
     public static function init()
     {
+        session_start();
+
+        
+        if (!isset($_SESSION["m_auth_logged"])) $_SESSION["m_auth_logged"] = false;
         if (Config::get("auth_enabled") !== true) return null;
 
         $model_name = "Models\\".Config::get("auth_model");
         if (!class_exists($model_name)) Trash::handle("$model_name Model does not exists !");
 
-        session_start();
 
         $model = new $model_name();
         $parser = new ModelParser($model_name);

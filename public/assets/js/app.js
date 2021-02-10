@@ -1,25 +1,28 @@
 
 function read_config()
 {
-    url = `${window.location.protocol}//${window.location.host}/config/read?token=${user_token}`;
+    url = `${window.location.protocol}//${window.location.host}/config/read`;
     console.log(url)
     fetch(url)
     .then(res => res.json())
     .then((res)=>{
-        console.log(res);
         user_config = res;
         fetchAPI()
+        setInterval(fetchAPI,5000);
+        apichart()
     });
 }
 
+let getAPIURL = ()=> `${window.location.protocol}//${window.location.host}/proxy`;
+
 
 function fetchAPI(){
+
     if (user_config !== null){
-        url = `${window.location.protocol}//${window.location.host}/proxy?token=${user_token}`;
+        url = getAPIURL()
         fetch(url)
         .then(res => res.json())
         .then((data)=>{
-            console.log(data);
             fillData(data);
         });
     }
@@ -54,7 +57,6 @@ function fillAPIInfo(meta)
 
 function getAlerte(t, mode)
 {
-    console.log(t, mode);
     // EXT
     if (t > 35.0) return "Hot hot hot !";
     if (t < 0) return "Banquise en Vue";
@@ -84,6 +86,7 @@ function getTempSection(capteur)
 function fillTemperature(capteurs)
 {
     tempSlot.innerHTML = "";
+    if (typeof capteurs == "undefined") return 0;
     capteurs.forEach(c => {
         tempSlot.innerHTML += getTempSection(c);
     })
@@ -114,5 +117,18 @@ if (typeof user_token === "undefined"){
     user_token = user_token.value
 }
 
+if ('serviceWorker' in navigator){
+    navigator.serviceWorker.register("/service-worker.js", {
+        scope: "/"
+    }).then(function (registration)
+    {
+      console.log('Service worker registered successfully');
+    }).catch(function (e)
+    {
+      console.error('Error during service worker registration:', e);
+    });;
+} else {
+    console.log("No Service worker in navigator");
+}
+
 read_config();
-setInterval(fetchAPI,5000);

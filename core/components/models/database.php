@@ -52,7 +52,7 @@ class DB {
             $connection = new PDO($dsn, DB::$configuration["user"], DB::$configuration["pass"]);
         } catch (PDOException $e)
         {
-            Trash::handle("Bad PDO parameters");
+            Trash::handle("Bad PDO parameters : " . $e->getMessage());
         }
         DB::$connection = $connection;
         return true;

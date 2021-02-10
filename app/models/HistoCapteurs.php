@@ -12,4 +12,5 @@ class HistoCapteurs extends Model {
 	public $temperature;
 	public $date;
 	public $nom;
+	public $domain;
 }

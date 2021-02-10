@@ -1,17 +1,6 @@
-<?php
+<?= include_file("header") ?>
+    <?php use Monkey\Services\Auth; ?>
 
-use Monkey\Services\Auth;
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= url('css/app.css') ?>">
-    <title>Hohohot</title>
-</head>
-<body>
     <header>
         <h1>Bienvenue sur Hohohot !</h1>
         <section class="f-filler"></section>
@@ -27,11 +16,16 @@ use Monkey\Services\Auth;
     </header>
     <section class="main-controller">
         <section id="temp-slot"></section>
+        <section class="card">
+            <h1>Résumé des 100 dernières mesures</h1>
+            <canvas id="tempChart"></canvas>
+        </section>
     </section>
     <section class="api-info">
         Présentation oui
     </section>
     <input type="hidden" id="user_token" value="<?= Auth::token() ?>">
-</body>
-<script src="<?= url('js/app.js') ?>"></script>
-</html>
+    <script src="<?= url('js/chart.js') ?>"></script>
+    <script src="<?= url('js/apichart.js') ?>"></script>
+    <script src="<?= url('js/app.js') ?>"></script>
+<?= include_file("footer") ?>
