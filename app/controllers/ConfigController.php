@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Kernel\ModelParser;
+use Kernel\Model\ModelParser;
 use Models\Configuration;
 use Monkey\Services\Auth;
 use Monkey\Web\API;

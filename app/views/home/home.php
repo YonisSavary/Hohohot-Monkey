@@ -2,6 +2,9 @@
     <?php use Monkey\Services\Auth; ?>
 
     <header>
+        <section class="ml-1 mr-1">
+            <img src="/android-chrome-192x192.png" alt="" style="max-height: 1.5rem">
+        </section>
         <h1>Bienvenue sur Hohohot !</h1>
         <section class="f-filler"></section>
         <ul>

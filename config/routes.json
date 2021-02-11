@@ -1,0 +1,99 @@
+[
+    {
+        "path": "/",
+        "callback": "IndexController->index"
+    },
+    {
+        "path": "/login",
+        "callback": "LoginController->login_user",
+        "methods": [
+            "POST"
+        ]
+    },
+    {
+        "path": "/login",
+        "callback": "LoginController->login_page",
+        "methods": [
+            "GET"
+        ],
+        "name":"login"
+    },
+    {
+        "path": "/home",
+        "callback": "IndexController->home",
+        "middlewares": [
+            "AuthMiddleware"
+        ]
+    },
+    {
+        "path": "/register",
+        "callback": "LoginController->register_page",
+        "methods": [
+            "GET"
+        ],
+        "name":"register"
+    },
+    {
+        "path": "/register",
+        "callback": "LoginController->register_user",
+        "methods": [
+            "POST"
+        ]
+    },
+    {
+        "path": "/unregister",
+        "callback": "LoginController->unregister",
+        "middlewares": [
+            "AuthMiddleware",
+            "TokenMiddleware"
+        ]
+    },
+    {
+        "path": "/logout",
+        "callback": "LoginController->logout_user"
+    },
+    {
+        "path": "/config",
+        "callback": "ConfigController->config_page",
+        "middlewares": [
+            "AuthMiddleware"
+        ]
+    },
+    {
+        "path": "/config/read",
+        "callback": "ConfigController->read",
+        "middlewares": [
+            "AuthMiddleware"
+        ]
+    },
+    {
+        "path": "/config/update",
+        "callback": "ConfigController->update",
+        "middlewares": [
+            "AuthMiddleware",
+            "TokenMiddleware"
+        ]
+    },
+    {
+        "path": "/login/change_pass",
+        "callback": "LoginController->change_pass",
+        "middlewares": [
+            "AuthMiddleware",
+            "TokenMiddleware"
+        ]
+    },
+    {
+        "path": "/proxy",
+        "callback": "IndexController->proxy",
+        "middlewares": [
+            "AuthMiddleware"
+        ]
+    },
+    {
+        "path": "/histo",
+        "callback": "HistoController->get",
+        "middlewares": [
+            "AuthMiddleware"
+        ]
+    }
+]

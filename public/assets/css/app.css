@@ -78,6 +78,20 @@ header li
     font-size: .8rem;
 }
 
+.wrap-body 
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.wrap-body > *
+{
+    margin: 1rem;
+}
+
+
 .main-controller
 {
     margin: 3rem;
@@ -176,6 +190,9 @@ input[type="text"], input[type="password"]
     padding: .5rem;
     text-decoration: none;
 }
+
+.button.red { background: rgb(109, 11, 11); }
+.button.red:hover { background: rgb(179, 24, 24);}
 
 
 .button.outline

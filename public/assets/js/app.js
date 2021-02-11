@@ -1,3 +1,7 @@
+const SEUIL_ALERTE = 16;
+const ANTI_SPAM = 30000;
+var can_read = false;
+var notified = [];
 
 function read_config()
 {
@@ -6,6 +10,7 @@ function read_config()
     fetch(url)
     .then(res => res.json())
     .then((res)=>{
+        if (res.api_url !== null) can_read = true;
         user_config = res;
         fetchAPI()
         setInterval(fetchAPI,5000);
@@ -17,7 +22,7 @@ let getAPIURL = ()=> `${window.location.protocol}//${window.location.host}/proxy
 
 
 function fetchAPI(){
-
+    if (!can_read) return undefined;
     if (user_config !== null){
         url = getAPIURL()
         fetch(url)
@@ -89,6 +94,36 @@ function fillTemperature(capteurs)
     if (typeof capteurs == "undefined") return 0;
     capteurs.forEach(c => {
         tempSlot.innerHTML += getTempSection(c);
+
+        let cCount = 0;
+        Notification.requestPermission()
+        if (c[user_config.devices_value] >= SEUIL_ALERTE)
+        {
+
+            let temp = c[user_config.devices_value];
+            let nom = c[user_config.devices_name];
+            if (!notified.includes(nom)) 
+            {
+                let notifTitle = `Alerte Hohohot !`;
+                let notifBody = `${nom} : ${temp}°C !`;
+                let notifImg = `/android-chrome-192x192.png`;
+                let options = {
+                    body: notifBody,
+                    icon: notifImg
+                }
+                setTimeout(()=>{
+                    let notif = new Notification(notifTitle, options);
+                }, cCount*1000)
+
+                setTimeout(()=>{
+                    notified = notified.filter(elem => elem != nom);
+                }, ANTI_SPAM);
+
+                cCount++;
+            }
+            notified.push(nom);
+        }
+
     })
 }
 
@@ -117,18 +152,22 @@ if (typeof user_token === "undefined"){
     user_token = user_token.value
 }
 
+/*
 if ('serviceWorker' in navigator){
     navigator.serviceWorker.register("/service-worker.js", {
-        scope: "/"
+        scope: "../"
     }).then(function (registration)
     {
       console.log('Service worker registered successfully');
     }).catch(function (e)
     {
       console.error('Error during service worker registration:', e);
-    });;
+    });
 } else {
     console.log("No Service worker in navigator");
-}
+}*/
 
 read_config();
+
+
+

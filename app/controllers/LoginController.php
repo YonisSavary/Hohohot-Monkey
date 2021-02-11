@@ -64,7 +64,7 @@ class LoginController
         $u = new Utilisateurs();
         $exists = $u->get("login")->where("login", $login)->limit(1)->execute();
         if (count($exists)>0){
-            // ERREUR
+            Router::redirect("/login?error=exists");
         }
 
         $u->insert("login", "pass")->values($login, Auth::create_password($pass))->execute();
@@ -80,5 +80,16 @@ class LoginController
         $user->save();
         Auth::logout();
         return API::ok("done.");
+    }
+
+
+    public function unregister()
+    {
+        $user = Auth::get_user();
+        $c = new Configuration();
+        $c->delete_from()->where("user_id", $user->id)->execute();
+        $user->delete();
+        Auth::logout();
+        Router::redirect(router("login"));
     }
 }

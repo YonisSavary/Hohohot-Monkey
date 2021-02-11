@@ -1,17 +1,6 @@
 <?= include_file("header") ?>
     <?php use Monkey\Services\Auth; ?>
-    <section class="fullscreen">
-        <article class="f-col align-center">
-            <h1>Changer de mot de passe</h1>
-            <section class="spaced f-col">
-                <span>Un mot de passe doit avoir 8 caractères minimum</span>
-                <span id="p_input_message"></span>
-                <input type="password" placeholder="nouveau mot de passe" name="" id="p_input_1">
-                <input type="password" placeholder="confirmer mot de passe" name="" id="p_input_2">
-            </section>
-            <button id="p_input_confirm" class="button">Confirmer</button>
-        </article>
-
+    <section class="wrap-body">
 
         <article class="f-col align-center">
             <h1>Configuration de l'API</h1>
@@ -71,6 +60,31 @@
             </details>
 
             <a href="/home" class="spaced">Retour à l'accueil</a>
+        </article>
+
+        <article class="f-col align-center">
+            <h1>Changer de mot de passe</h1>
+            <section class="spaced f-col">
+                <span>Un mot de passe doit avoir 8 caractères minimum</span>
+                <span id="p_input_message"></span>
+                <input type="password" placeholder="nouveau mot de passe" name="" id="p_input_1">
+                <input type="password" placeholder="confirmer mot de passe" name="" id="p_input_2">
+            </section>
+            <button id="p_input_confirm" class="button">Confirmer</button>
+        </article>
+
+        
+        <article class="f-col align-center">
+            <h1>Supprimer Mon Compte</h1>
+            <p>
+                Supprimer Son compte :
+                <ul>
+                    <li>Est définitif</li>
+                    <li>Est irréversible</li>
+                    <li>Comprend la suppréssion de votre configuration</li>
+                </ul>
+            </p>
+            <button id="delete_confirm" class="button red">Supprimer mon compte</button>
         </article>
 
 

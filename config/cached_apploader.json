@@ -1,0 +1,16 @@
+[
+    [
+        ".\/app\/views"
+    ],
+    [
+        ".\/app\/controllers\/ConfigController.php",
+        ".\/app\/controllers\/HistoController.php",
+        ".\/app\/controllers\/IndexController.php",
+        ".\/app\/controllers\/LoginController.php",
+        ".\/app\/middlewares\/AuthMiddleware.php",
+        ".\/app\/middlewares\/TokenMiddleware.php",
+        ".\/app\/models\/Configuration.php",
+        ".\/app\/models\/HistoCapteurs.php",
+        ".\/app\/models\/Utilisateurs.php"
+    ]
+]

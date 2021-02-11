@@ -9,6 +9,7 @@ var config = {
         responsive: true,
         title: {
             display: true,
+            fontColor: "#FFF",
             text: 'Résumé des 100 dernières mesures'
         },
         tooltips: {
@@ -21,25 +22,36 @@ var config = {
         },
         scales: {
             xAxes: [{
+                ticks: {
+                    fontColor: "#FFF"
+                },
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: 'Timestamp',
+                    fontColor: "#FFF"
                 }
             }],
             yAxes: [{
+                ticks: {
+                    fontColor: "#FFF"
+                },
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Value'
+                    labelString: 'Température',
+                    fontColor: "#FFF"
                 }
             }]
+        },
+        legend: {
+
         }
     }
 };
 
 let randomNumber = () => Math.floor(Math.random()*255);
-let randomColor = () => "rgb(" + randomNumber()+","+ randomNumber()+","+ randomNumber()+")";
+let randomColor = () => "rgb("+ randomNumber()*.6 +","+ randomNumber() +","+ randomNumber()*.2 +")";
 
 
 function fillchart(data)

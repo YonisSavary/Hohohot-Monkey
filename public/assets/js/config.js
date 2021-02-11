@@ -74,3 +74,11 @@ p_input_confirm.addEventListener("click", ()=>{
         
     }
 })
+
+let delete_confirm = document.querySelector("#delete_confirm");
+delete_confirm.addEventListener("click", ()=>{
+    if (confirm("êtes-vous sûr de vouloir supprimer votre compte ?")){
+        window.location.href = `${window.location.protocol}//${window.location.host}/unregister?token=${user_token}&password=${p_input_1.value}`
+    }
+})
+

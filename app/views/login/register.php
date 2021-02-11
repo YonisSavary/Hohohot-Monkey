@@ -6,5 +6,6 @@
             <input type="password" name="pass" placeholder="Mot de passe" id="">
             <input type="submit" class="button spaced" value="S'inscrire">
         </form>
+        <span>Déjà inscris ? <a href="<?= router("login") ?>">Connectez-vous !</a></span>
     </section>
 <?= include_file("footer") ?>
