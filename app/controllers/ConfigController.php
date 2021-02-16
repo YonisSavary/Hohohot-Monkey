@@ -34,7 +34,7 @@ class ConfigController
         $parser = new ModelParser($new_config::class);
         $fields = $parser->get_model_fields();
         foreach ($fields as $f){
-            if ($config[$f] === null) continue;
+            if (!isset($config[$f])) continue;
             $new_config->$f = $config[$f];
         }
         $new_config->user_id = Auth::get_user()->id;

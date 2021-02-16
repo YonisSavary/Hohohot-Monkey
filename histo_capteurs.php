@@ -27,32 +27,29 @@ foreach($configs as $c){
     echo " - " . $c->domain . "\n";
 }
 
-echo YELLOW . " --- DEBUT DE LA BOUCLE --- \n" . RESET;
-while(true)
+echo YELLOW . " --- DEBUT DU TRAITEMENT --- \n" . RESET;
+
+try 
 {
-    try 
-    {
-        foreach ($configs as $c){
-            ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 6.0)'); 
-            $data = json_decode(file_get_contents($c->api_url));
-    
-            $dk = $c->devices_key;
-            $dn = $c->devices_name;
-            $dv = $c->devices_value;
-    
-            $capteurs = $data->$dk;
-    
-            foreach ($capteurs as $capteur){
-                $h = new HistoCapteurs();
-                $h->insert("domain", "nom", "temperature", "date")
-                ->values($c->domain, $capteur->$dn, $capteur->$dv, time())->execute();
-            }
-            echo time() ." - Capteur récupérés pour " . $c->domain . "\t : " . YELLOW . count($capteurs) . RESET . "\n";
+    foreach ($configs as $c){
+        ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 6.0)'); 
+        $data = json_decode(file_get_contents($c->api_url));
+
+        $dk = $c->devices_key;
+        $dn = $c->devices_name;
+        $dv = $c->devices_value;
+
+        $capteurs = $data->$dk;
+
+        foreach ($capteurs as $capteur){
+            $h = new HistoCapteurs();
+            $h->insert("domain", "nom", "temperature", "date")
+            ->values($c->domain, $capteur->$dn, $capteur->$dv, time())->execute();
         }
+        echo time() ." - Capteur récupérés pour " . $c->domain . "\t : " . YELLOW . count($capteurs) . RESET . "\n";
     }
-    catch (Exception $e)
-    {
-        echo "\033[31;1m ERREUR : " . $e->getMessage() . RESET . "\n";
-    }
-    sleep(60);
+}
+catch (Exception $e)
+{
+    echo "\033[31;1m ERREUR : " . $e->getMessage() . RESET . "\n";
 }
