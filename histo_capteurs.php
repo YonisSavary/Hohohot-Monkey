@@ -3,6 +3,7 @@
 use Models\Configuration;
 use Models\HistoCapteurs;
 use Monkey\Config;
+use Monkey\Dist\DB;
 
 require_once "core/monkey.php";
 

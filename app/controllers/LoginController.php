@@ -38,9 +38,7 @@ class LoginController
             $c = new Configuration;
             $res = $c->get_all()->where("user_id", $user->id)->execute();
             if (count($res)===0) {
-                DB::$do_return = false;
                 $c->insert("user_id")->values($user->id)->execute();
-                DB::$do_return = true;
                 $res = $c->get_all()->where("user_id", $user->id)->execute();
             }
             $_SESSION["config"] = $res[0];
@@ -70,9 +68,7 @@ class LoginController
             Router::redirect("/login?error=exists");
         }
 
-        DB::$do_return = false;
         $u->insert("login", "pass")->values($login, Auth::create_password($pass))->execute();
-        DB::$do_return = true;
         Router::redirect("/home");
 
     }
