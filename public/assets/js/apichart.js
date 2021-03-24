@@ -54,12 +54,33 @@ let randomNumber = () => Math.floor(Math.random()*255);
 let randomColor = () => "rgb("+ randomNumber()*.6 +","+ randomNumber() +","+ randomNumber()*.2 +")";
 
 
+function unix_to_human_timestamp(unix_timestamp){
+    // Create a new JavaScript Date object based on the timestamp
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    var date = new Date(unix_timestamp * 1000);
+    // Hours part from the timestamp
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    
+    var day = "0" + date.getDay();
+    var month = "0" + date.getMonth();
+    var year = date.getFullYear();
+    
+    // Will display time in 10:30:23 format
+    var formattedTime = day.substr(-2) + "/" + month.substr(-2) + "/" + year + " "
+    formattedTime += hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    
+    return formattedTime;
+}
+
 function fillchart(data)
 {
     let dates = [];
     let capteurs = {};
 
     data.forEach( elem => {
+        elem.date = unix_to_human_timestamp(elem.date);
         if (!config.data.labels.includes(elem.date)) config.data.labels.push(elem.date);
         if (!Object.keys(capteurs).includes(elem.nom)) capteurs[elem.nom] = [];
         capteurs[elem.nom].push(elem.temperature);
